@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div style="float:left;border: 1px solid #ccc;padding: 5px">
+
+        <div style="padding:15px 5px 8px 5px;border-bottom: 1px solid red;width: 650px">
+            <div style="float:left;font-weight:bold;width:500px;color:#1e81ab;font-size:18px;">{{ artical.post_title }} </div>
+            <div style="clear:both"></div>
+        </div>
+        <br>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <form action="{% url 'artical:updateartical' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="post_id" id="post_id" value="{{ artical.id}}">
+            <span style="font-size:13px;">Article  : </span>
+            <textarea name="post_content" id="post_content" cols="60" rows="8">{{artical.post_content }}</textarea><br><br>
+            <input type="submit" value="Update" />
+        </form>
+
+    </div>
+
+</body>
+</html>

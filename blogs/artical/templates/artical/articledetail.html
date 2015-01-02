@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <div style="float:left;border: 1px solid #ccc;padding: 5px">
+        <div style="padding:15px 5px 8px 5px;border-bottom: 1px solid red;width: 650px">
+            <div style="float:left;font-weight:bold;width:500px;color:#1e81ab;font-size:18px;">{{ artical.post_title }} </div>
+            <div style="float:left">
+                <a style="font-size: 13px" href="{% url 'artical:editartical' artical.id %}">Edit </a> &nbsp;&nbsp; | &nbsp;&nbsp;
+                <a style="font-size: 13px" href="{% url 'artical:listPosts' %}"> Back</a>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <br>
+        <div style="clear:both"></div>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <div style="width: 650px"><span style="color: red;font-weight: bold">&raquo;</span>&nbsp;&nbsp;{{ artical.post_content }}</div><br>
+        <div style="font-weight:bold;background: #666;width: 650px;color: #fff;padding: 3px 3px;font-size: 13px">Comments:</div>
+
+        {% for comment in artical.comments_set.all %}
+            <div style="border-bottom:1px dotted #aaa;width:645px;padding:7px 0;font-size: 12px">&nbsp;&raquo;&nbsp;&nbsp;{{comment.comments}} </div>
+        {% endfor %}
+
+        <br><br>
+    </div>
+    <div style="float:left;border: 1px solid #ccc;padding: 5px;margin-left: 10px">
+        <div style="font-weight:bold;background: #666;color: #fff;padding: 3px 3px;font-size: 13px">Add Your Comment: </div>
+         <form action="{% url 'artical:addcomment' %}" method="post">
+            {% csrf_token %}
+            <span style="font-size:13px;">Comment : </span>
+            <input type="hidden" name="post_id" id="post_id" value="{{ artical.id}}">
+            <textarea name="comments" id="comments"></textarea>
+            <input type="submit" value="Post" />
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
